@@ -72,5 +72,5 @@ create (p)-[:SIVILSTAND {sivilstand: row.sivilstand,ergjeldende:toBoolean(row.er
 ```
 
 ### Annet
-* GitHub Ronny: https://github.com/ronnyma/jz_nta (her ligger .csv filene som kan lastes ned).
+* GitHub Ronny: https://github.com/ronnyma/jz_nta.
 * Cheatsheet Neo4j Enterprise: https://neo4j.com/docs/cypher-cheat-sheet/5/auradb-enterprise/
