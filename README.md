@@ -70,7 +70,35 @@ LOAD CSV WITH HEADERS FROM "file:///sivilstand.csv" AS row
 match (p:Person {foedselsnummer: row.hovedperson}),(q:Person {foedselsnummer: row.ektefelleEllerPartner})
 create (p)-[:SIVILSTAND {sivilstand: row.sivilstand,ergjeldende:toBoolean(row.erGjeldende),sivilstandsdato:date(row.sivilstandsdato),myndighet:row.myndighet}]->(q)
 ```
-
+## Cypher queries
+**Gift en personer med en annen**
+<br/>_SIVILSTAND_
+```
+match (d:Person{foedselsnummer:'13852199983'}), (l:Person{foedselsnummer:'12312312312'}) create (d) - [:SIVILSTAND{sivilstand:'GIFT', ergjeldende:TRUE, gyldighetstidspunkt:date('2010-01-01')}] -> (l) 
+```
+_FAMILIERELASJON_
+```
+match (d:Person{foedselsnummer:'13852199983'}), (l:Person{foedselsnummer:'12312312312'}) create (d) - [:FAMILIERELASJON{rolle:'EKTEFELLE ELLER PARTNER', ergjeldende:TRUE, gyldighetstidspunkt:date('2010-01-01')}] -> (l)
+```
+**Lag Person**
+```
+create (p:Person{foedselsnummer:'10123456789', foedselsdato:date('1923-09-6'), personstatus:'BOSATT', navn:'Navn Navnesen', kjoenn:'MANN', postnummer:'1234'})
+```
+**Slett en relasjon mellom to personer**
+```
+match (p:Person{foedselsnummer:'12312312312'}) - [r:FAMILIERELASJON{rolle:'BARN'}] -> (q:Person) delete r
+```
+```
+match (p:Person{foedselsnummer:'13912199295'}) <- [r:FORELDREANSVAR{ansvarstype:'FELLES'}] - (q:Person) delete r
+```
+**Slett en person med tilhørende relasjoner**
+```
+match (p:Person{navn:'Navn Navnesen'}) detach delete p
+```
+**Slett hele tabellen**
+```
+match (n) detach delete n
+```
 ### Annet
 * GitHub Ronny: https://github.com/ronnyma/jz_nta (her ligger .csv filene som kan lastes ned).
 * Cheatsheet Neo4j Enterprise: https://neo4j.com/docs/cypher-cheat-sheet/5/auradb-enterprise/
