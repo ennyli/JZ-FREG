@@ -2,7 +2,7 @@
 Skatteetaten / Folkeregisteret på JavaZone i Oslo.
 
 ---
-### Start opp Neo4j Docker-container fra kommandolinjen:
+### Opprett og start opp Neo4j Docker-container fra kommandolinjen:
 Start opp container _-d (i bakgrunnen) -p (med porter) --env (uten passord)_
 ```
 docker run -d -p=7474:7474 -p=7687:7687 -v=$HOME/neo4j/data:/data --env NEO4J_AUTH=none neo4j
