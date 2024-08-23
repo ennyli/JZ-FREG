@@ -31,6 +31,7 @@ docker images -a
 ---
 
 ## Import av data til Neo4j UI
+_(Filene kan lastes ned fra 'Resources')_
 _(importer Persondata først, så relasjonene!)_
 ### Persondata
 ```
