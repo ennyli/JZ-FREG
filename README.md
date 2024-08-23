@@ -2,46 +2,36 @@
 Folkeregisteret konkurranse på JavaZone 2023 i Oslo.
 
 ---
-### Basic kommandoer for å starte opp Docker og Neo4j:
-Installer Docker (macOS)
-```
-brew install docker
-brew install --cask docker\
-```
+### Starte opp Docker og Neo4j fra kommandolinjen:
 Start opp image (i bakgrunnen) (med porter) (uten passord auth)
 ```
 docker run -d -p=7474:7474 -p=7687:7687 -v=$HOME/neo4j/data:/data --env NEO4J_AUTH=none neo4j
 ```
 Kopier fil fra maskin til container
 ```
- docker cp <file.csv> <containerId>:/var/lib/neo4j/import
+ docker cp <filename.csv> <containerId>:/var/lib/neo4j/import
 ```
 Start opp container og gå inn i image
+Start container (opp igjen)
+Stop container
 Gå ut av container
 ```
 docker exec -it <containerId> /bin/bash
+docker start <containerId>
+docker stop <containerId>
 exit
 ```
 Sjekk alle/aktive containere
+Sjekk alle/aktive images
 ```
 docker ps -a
-```
-Sjekk alle/aktive containere
-```
 docker images -a
 ```
-Start container (opp igjen)
-Stop container
-```
-docker start <containerId>
-docker stop <containerId>
-```
-
-* Kjører lokalt: http://localhost:7474/browser/
+* Åpne applikasjonen i nettleseren: http://localhost:7474/browser/
 ---
 
 ## Import av data til Neo4j UI
-_(importer Persondata først, så relasjonene)_
+_(importer Persondata først, så relasjonene!)_
 ### Persondata
 ```
 LOAD CSV WITH HEADERS FROM "file:///personer.csv" AS row
@@ -49,7 +39,7 @@ create(p:Person {foedselsnummer: row.fnummer, personstatus:row.personstatus,kjoe
 ```
 ### Relasjoner
 **FAMILIERELASJON** 
-_(denne tar litt lengre tid å laste inn)_
+_(denne bruker litt lengre tid å laste inn...)_
 ```
 LOAD CSV WITH HEADERS FROM "file:///relasjoner.csv" AS row
 match (p:Person {foedselsnummer: row.fnummer1}),(q:Person {foedselsnummer: row.fnummer2})
