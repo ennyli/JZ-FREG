@@ -31,8 +31,7 @@ docker images -a
 ---
 
 ## Import av data til Neo4j UI
-_(Filene kan lastes ned fra 'Resources')_
-_(importer Persondata først, så relasjonene!)_
+_(Filene kan lastes ned fra 'Resources'. Husk å importer 'Persondata' først, så 'relasjonene' - ellers blir ikke relasjonene koblet riktig med personene.)_
 ### Persondata
 ```
 LOAD CSV WITH HEADERS FROM "file:///personer.csv" AS row
@@ -40,7 +39,7 @@ create(p:Person {foedselsnummer: row.fnummer, personstatus:row.personstatus,kjoe
 ```
 ### Relasjoner
 **FAMILIERELASJON** 
-_(denne bruker litt lengre tid å laste inn...)_
+_(denne bruker litt lengre tid på å laste inn...)_
 ```
 LOAD CSV WITH HEADERS FROM "file:///relasjoner.csv" AS row
 match (p:Person {foedselsnummer: row.fnummer1}),(q:Person {foedselsnummer: row.fnummer2})
