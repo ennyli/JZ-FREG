@@ -74,6 +74,10 @@ match (n:Person{foedselsnummer:'00000000000'}) return n
 ```cypher
 match (n:Person{navn:'Navn Navnesen'}) return n
 ```
+**Telle antall personer**
+```
+match (p) with count(p) as personer return personer
+```
 **Telle antall relasjoner**
 <br/>_velg type relasjon (familierelasjon, sivilstand, foreldreansvar)_
 ```cypher
