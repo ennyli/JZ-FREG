@@ -105,7 +105,7 @@ create (p:Person{foedselsnummer:'00000000000', foedselsdato:date('2000-01-01'), 
 match (p:Person{foedselsnummer:'00000000000'}) - [r:FAMILIERELASJON{rolle:'BARN'}] -> (q:Person) delete r
 ```
 ```cypher
-match (p:Person{foedselsnummer:'12345678901'}) <- [r:FORELDREANSVAR{ansvarstype:'FELLES'}] - (q:Person) delete r
+match (p:Person{foedselsnummer:'12345678901'}) <- [r:FAMILIERELASJON{ansvarstype:'MOR'}] - (q:Person) delete r
 ```
 **Slett en person med tilhørende relasjoner**
 ```cypher
