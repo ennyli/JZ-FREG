@@ -74,6 +74,12 @@ match (n:Person{foedselsnummer:'00000000000'}) return n
 ```cypher
 match (n:Person{navn:'Navn Navnesen'}) return n
 ```
+**Hent personer som har postnummer i Oslo (nummer som starter på 00 -> 12)
+```cypher
+MATCH (n:Person) 
+WHERE n.postnummer =~ '^(0[0-9]|1[0-2])[0-9]{2}$'
+RETURN n
+```
 **Telle antall personer**
 ```
 match (p) with count(p) as personer return personer
@@ -88,12 +94,14 @@ match (:Person) - [r:FAMILIERELASJON] -> (:Person) with count(r) as relasjoner r
 (kommandoen må kjøres 2 ganger, på hver sin person)_
 <br/>_SIVILSTAND_
 ```cypher
-match (d:Person{foedselsnummer:'00000000000'}), (l:Person{foedselsnummer:'12345678901'}) create (d) - [:SIVILSTAND{sivilstand:'GIFT', ergjeldende:TRUE, gyldighetstidspunkt:date('2000-01-01')}] -> (l) 
+match (d:Person{foedselsnummer:'00000000000'}), (l:Person{foedselsnummer:'12345678901'})
+create (d) - [:SIVILSTAND{sivilstand:'GIFT', ergjeldende:TRUE, gyldighetstidspunkt:date('2000-01-01')}] -> (l) 
 ```
 <br/>_FAMILIERELASJON_
 <br/>_legger man inn et giftemål bør det også være en kobling mellom dem i familierelasjonen også (også tovveis)_
 ```cypher
-match (d:Person{foedselsnummer:'00000000000'}), (l:Person{foedselsnummer:'12345678901'}) create (d) - [:FAMILIERELASJON{rolle:'EKTEFELLE_ELLER_PARTNER', ergjeldende:TRUE, gyldighetstidspunkt:date('2000-01-01')}] -> (l)
+match (d:Person{foedselsnummer:'00000000000'}), (l:Person{foedselsnummer:'12345678901'})
+create (d) - [:FAMILIERELASJON{rolle:'EKTEFELLE_ELLER_PARTNER', ergjeldende:TRUE, gyldighetstidspunkt:date('2000-01-01')}] -> (l)
 ```
 **Lag Person**
 ```cypher
