@@ -74,11 +74,10 @@ match (n:Person{foedselsnummer:'00000000000'}) return n
 ```cypher
 match (n:Person{navn:'Navn Navnesen'}) return n
 ```
-**Hent personer som har postnummer i Oslo (nummer som starter på 00 -> 12)
+**Hent personer som har postnummer i Oslo**
+<br/>_(Oslo har postnummer som starter på 00 -> 12)_
 ```cypher
-MATCH (n:Person) 
-WHERE n.postnummer =~ '^(0[0-9]|1[0-2])[0-9]{2}$'
-RETURN n
+match (n:Person) where n.postnummer =~ '^(0[0-9]|1[0-2])[0-9]{2}$' return n
 ```
 **Telle antall personer**
 ```
